@@ -29,7 +29,6 @@ bool Set::contains(int element)
 
 bool Set::add(int element)
 {
-    printf("add: %d\n", element);
     if (contains(element))
     {
         return false;
@@ -81,6 +80,33 @@ void Set::print()
     printf("}\n");
     printf("\ncapacity: %d\n", capacity);
     printf("size: %d\n=========\n\n", size);
+}
+
+Set *Set::common_part(Set *another_set)
+{
+    auto *result = new Set;
+    for (int i = 0; i < size; ++i)
+    {
+        if (another_set->contains(array[i]))
+        {
+            result->add(array[i]);
+        }
+    }
+    return result;
+}
+
+Set *Set::unite(Set *set)
+{
+    auto *result = new Set;
+    for (int i = 0; i < size; ++i)
+    {
+        result->add(array[i]);
+    }
+    for (int i = 0; i < set->size; ++i)
+    {
+        result->add(set->array[i]);
+    }
+    return result;
 }
 
 

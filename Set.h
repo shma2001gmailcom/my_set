@@ -5,10 +5,12 @@
 #ifndef MY_SET_SET_H
 #define MY_SET_SET_H
 
+#include "Set.h"
+
 class Set
 {
 public:
-    virtual Set();
+    Set();
 
     virtual ~Set();
 
@@ -21,6 +23,10 @@ public:
     int get(int element);
 
     int get_size();
+
+    Set *unite(Set *set);
+
+    Set *common_part(Set *another_set);
 
     void print();
 
