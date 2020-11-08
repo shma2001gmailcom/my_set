@@ -22,12 +22,12 @@ bool Set::is_empty()
     return size == 0;
 }
 
-bool Set::contains(int element)
+const bool Set::contains(const int &element) const
 {
     return in(element, array, size);
 }
 
-bool Set::add(int element)
+bool Set::add(const int &element)
 {
     if (contains(element))
     {
@@ -47,17 +47,14 @@ bool Set::add(int element)
 void Set::increase_capacity()
 {
     auto *new_array = new int[2 * capacity];
-    for (int i = 0; i < size; ++i)
-    {
-        new_array[i] = array[i];
-    }
+    for (int i = 0; i < size; new_array[i] = array[i++]);
     capacity *= 2;
     printf("new capacity: %d\n", capacity);
     delete[] array;
     array = new_array;
 }
 
-int Set::get(int element)
+int Set::get(const int &element)
 {
     if (in(element, array, size))
     {
@@ -73,16 +70,13 @@ int Set::get_size()
 void Set::print()
 {
     printf("\n============\n{");
-    for (int i = 0; i < size; ++i)
-    {
-        i == size - 1 ? printf("%d", array[i]) : printf("%d, ", array[i]);
-    }
+    for (int i = 0; i < size; i == size - 1 ? printf("%d", array[i]) : printf("%d, ", array[i]), ++i);
     printf("}\n");
     printf("\ncapacity: %d\n", capacity);
     printf("size: %d\n=========\n\n", size);
 }
 
-Set *Set::common_part(Set *another_set)
+Set *Set::common_part(const Set *another_set)
 {
     auto *result = new Set;
     for (int i = 0; i < size; ++i)
@@ -95,17 +89,11 @@ Set *Set::common_part(Set *another_set)
     return result;
 }
 
-Set *Set::unite(Set *set)
+Set *Set::unite(const Set *set)
 {
     auto *result = new Set;
-    for (int i = 0; i < size; ++i)
-    {
-        result->add(array[i]);
-    }
-    for (int i = 0; i < set->size; ++i)
-    {
-        result->add(set->array[i]);
-    }
+    for (int i = 0; i < size; result->add(array[i++]));
+    for (int i = 0; i < set->size; result->add(set->array[i++]));
     return result;
 }
 

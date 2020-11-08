@@ -29,7 +29,7 @@ inline static bool is_number(const std::string &s)
     return !s.empty() && it == s.end();
 }
 
-inline bool is_int(const std::string &s)
+inline static bool is_int(const std::string &s)
 {
     if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
     char *p;

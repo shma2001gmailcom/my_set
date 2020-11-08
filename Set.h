@@ -16,17 +16,17 @@ public:
 
     bool is_empty();
 
-    bool contains(int element);
+    const bool contains(const int& element)const;
 
-    bool add(int element);
+    bool add(const int& element);
 
-    int get(int element);
+    int get(const int& element);
 
     int get_size();
 
-    Set *unite(Set *set);
+    Set *unite(const Set *set);
 
-    Set *common_part(Set *another_set);
+    Set *common_part(const Set *another_set);
 
     void print();
 
@@ -40,7 +40,7 @@ private:
 
 };
 
-static bool in(int element, int *elements, int size)
+static inline const bool in(const int& element, const int *elements, const int& size)
 {
     for (int i = 0; i < size; ++i)
     {
