@@ -24,7 +24,7 @@ bool Set::is_empty()
 
 bool Set::contains(int element)
 {
-    return in(element, this->array, size);
+    return in(element, array, size);
 }
 
 bool Set::add(int element)
