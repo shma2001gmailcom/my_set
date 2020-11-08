@@ -17,7 +17,7 @@ Set *Parser::parse_set()
     while (s >> temp)
     {
         cout << temp << endl;
-        if (is_number(temp))
+        if (is_numeric(temp))
         {
             result->add(std::stoi(temp));
         }

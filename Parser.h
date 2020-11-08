@@ -22,11 +22,35 @@ public:
     Set *parse_set();
 };
 
-static bool is_number(const std::string &s)
+inline static bool is_number(const std::string &s)
 {
     std::string::const_iterator it = s.begin();
     for (; it != s.end() && std::isdigit(*it); ++it);
     return !s.empty() && it == s.end();
+}
+
+inline bool is_int(const std::string &s)
+{
+    if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+    char *p;
+    strtol(s.c_str(), &p, 10);
+    return (*p == 0);
+}
+
+inline static bool is_numeric(const string &s)
+{
+    if (s.empty())
+    {
+        return false;
+    }
+    for (char i : s)
+    {
+        if (!isdigit(i))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 #endif //CPP_HWS_PARSER_H
