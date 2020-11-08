@@ -9,12 +9,12 @@ Set *make_set_from_input();
 
 int main()
 {
-    Set *set = make_set_internally();
-    Set *anotherSet = make_set_from_input();
-    Set *intersection = set->common_part(anotherSet);
+    auto set = make_set_internally();
+    auto anotherSet = make_set_from_input();
+    auto intersection = set->common_part(anotherSet);
     cout << "intersection: \n" << endl;
     intersection->print();
-    Set *_union = set->unite(anotherSet);
+    auto _union = set->unite(anotherSet);
     cout << "union: \n" << endl;
     _union->print();
     return 0;
@@ -23,7 +23,7 @@ int main()
 Set *make_set_from_input()
 {
     auto *parser = new Parser;
-    Set *anotherSet = parser->parse_set();
+    auto anotherSet = parser->parse_set();
     anotherSet->print();
     return anotherSet;
 }
