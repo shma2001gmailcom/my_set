@@ -12,10 +12,10 @@ int main()
     auto set = make_set_internally();
     auto anotherSet = make_set_from_input();
     auto intersection = set->common_part(anotherSet);
-    cout << "intersection: \n" << endl;
+    cout << "intersection: " << endl;
     intersection->print();
     auto _union = set->unite(anotherSet);
-    cout << "union: \n" << endl;
+    cout << "union: " << endl;
     _union->print();
     return 0;
 }

@@ -73,7 +73,7 @@ void Set::print()
     for (int i = 0; i < size; i == size - 1 ? printf("%d", array[i]) : printf("%d, ", array[i]), ++i);
     printf("}\n");
     printf("\ncapacity: %d\n", capacity);
-    printf("size: %d\n=========\n\n", size);
+    printf("size: %d\n=========\n", size);
 }
 
 Set *Set::common_part(const Set *another_set)
