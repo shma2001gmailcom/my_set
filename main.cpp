@@ -1,4 +1,3 @@
-
 #include <cstdio>
 #include "Set.h"
 #include "Parser.h"
@@ -37,7 +36,7 @@ Set *make_set_internally()
     }
     set->print();
     printf("is set empty? %s\n", set->is_empty() ? "true" : "false");
-    printf("get 11: %d\n", set->get(11));
+    printf("get 11: %d\n", *(set->get(11)));
     printf("contains 23? %s\n", set->contains(23) ? "true" : "false");
     printf("contains 97? %s\n", set->contains(27) ? "true" : "false");
     printf("size: %d", set->get_size());

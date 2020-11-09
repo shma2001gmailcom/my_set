@@ -6,6 +6,7 @@
 #define MY_SET_SET_H
 
 #include "Set.h"
+#include "SortedList.h"
 
 class Set
 {
@@ -20,9 +21,9 @@ public:
 
     bool add(const int& element);
 
-    int get(const int& element);
+    int* get(const int& element);
 
-    int get_size();
+    int get_size()const;
 
     Set *unite(const Set *set);
 
@@ -31,13 +32,7 @@ public:
     void print();
 
 private:
-    static const int INITIAL_CAPACITY = 17;
-    int *array;
-    int capacity;
-    int size;
-
-    void increase_capacity();
-
+    SortedList *array;
 };
 
 static inline const bool in(const int& element, const int *elements, const int& size)

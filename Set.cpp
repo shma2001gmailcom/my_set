@@ -2,14 +2,14 @@
 // Created by misha on 11/8/20.
 //
 
-#include <cstdio>
 #include "Set.h"
+#include <cstdio>
+
+using namespace std;
 
 Set::Set()
 {
-    capacity = INITIAL_CAPACITY;
-    array = new int[capacity];
-    size = 0;
+    array = new SortedList;
 }
 
 Set::~Set()
@@ -19,71 +19,43 @@ Set::~Set()
 
 bool Set::is_empty()
 {
-    return size == 0;
+    return array->is_empty();
 }
 
 const bool Set::contains(const int &element) const
 {
-    return in(element, array, size);
+    return array->search(element) != nullptr;
 }
 
 bool Set::add(const int &element)
 {
-    if (contains(element))
-    {
-        return false;
-    }
-    if (size <= capacity)
-    {
-        array[size] = element;
-        ++size;
-        return true;
-    }
-    increase_capacity();
-    add(element);
-    return true;
+    array->add(element);
 }
 
-void Set::increase_capacity()
+//nullable
+int *Set::get(const int &element)
 {
-    auto *new_array = new int[2 * capacity];
-    for (int i = 0; i < size; new_array[i] = array[i++]);
-    capacity *= 2;
-    printf("new capacity: %d\n", capacity);
-    delete[] array;
-    array = new_array;
+    int *index = array->search(element);
+    if (index == nullptr)
+    { return index; }
+    int i = array->get_at(*index);
+    return new int(i);
 }
 
-int Set::get(const int &element)
+int Set::get_size() const
 {
-    if (in(element, array, size))
-    {
-        return element;
-    }
-}
-
-int Set::get_size()
-{
-    return size;
-}
-
-void Set::print()
-{
-    printf("\n============\n{");
-    for (int i = 0; i < size; i == size - 1 ? printf("%d", array[i]) : printf("%d, ", array[i]), ++i);
-    printf("}\n");
-    printf("\ncapacity: %d\n", capacity);
-    printf("size: %d\n=========\n", size);
+    return array->get_size();
 }
 
 Set *Set::common_part(const Set *another_set)
 {
     auto *result = new Set;
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < get_size(); ++i)
     {
-        if (another_set->contains(array[i]))
+        int element = array->get_at(i);
+        if (another_set->contains(element))
         {
-            result->add(array[i]);
+            result->add(element);
         }
     }
     return result;
@@ -92,9 +64,14 @@ Set *Set::common_part(const Set *another_set)
 Set *Set::unite(const Set *set)
 {
     auto *result = new Set;
-    for (int i = 0; i < size; result->add(array[i++]));
-    for (int i = 0; i < set->size; result->add(set->array[i++]));
+    for (int i = 0; i < get_size(); result->add(array->get_at(i++)));
+    for (int i = 0; i < set->get_size(); result->add(set->array->get_at(i++)));
     return result;
+}
+
+void Set::print()
+{
+    array->print();
 }
 
 
