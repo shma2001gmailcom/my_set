@@ -18,8 +18,9 @@ Set *Parser::parse_set() const
     {
         if (is_numeric(temp))
         {
-            result->add(std::stoi(temp));
+            result->add(static_cast<const unsigned int &>(std::stoi(temp)));
         }
+        else __throw_invalid_argument("input should consist of unsigned ints");
     }
     return result;
 }
