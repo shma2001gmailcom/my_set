@@ -8,25 +8,23 @@
 
 using namespace std;
 
-Set *Parser::parse_set()
+Set *Parser::parse_set() const
 {
-    cout << "\ntype some numbers separated by space\n\n" << endl;
+    cout << "\ntype some non-negative integers separated by space\n\n" << endl;
     string temp;
     stringstream s(get_input());
     auto *result = new Set;
     while (s >> temp)
     {
-        cout << temp << endl;
         if (is_numeric(temp))
         {
             result->add(std::stoi(temp));
         }
     }
     return result;
-
 }
 
-string Parser::get_input()
+string Parser::get_input() const
 {
     string str;
     getline(cin, str);

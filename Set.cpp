@@ -3,7 +3,6 @@
 //
 
 #include "Set.h"
-#include <cstdio>
 
 using namespace std;
 
@@ -17,29 +16,31 @@ Set::~Set()
     delete[] array;
 }
 
-bool Set::is_empty()
+bool Set::is_empty() const//O(1)
 {
     return array->is_empty();
 }
 
-const bool Set::contains(const int &element) const
+const bool Set::contains(const unsigned int &element) const//O(log n)
 {
     return array->search(element) != nullptr;
 }
 
-bool Set::add(const int &element)
+bool Set::add(const unsigned int &element) const
 {
     array->add(element);
 }
 
 //nullable
-int *Set::get(const int &element)
+unsigned int *Set::get(const int &element) const
 {
-    int *index = array->search(element);
+    unsigned int *index = array->search(element);
     if (index == nullptr)
-    { return index; }
+    {
+        return index;
+    }
     int i = array->get_at(*index);
-    return new int(i);
+    return new unsigned int(i);
 }
 
 int Set::get_size() const
@@ -47,7 +48,7 @@ int Set::get_size() const
     return array->get_size();
 }
 
-Set *Set::common_part(const Set *another_set)
+Set *Set::common_part(const Set *another_set) const
 {
     auto *result = new Set;
     for (int i = 0; i < get_size(); ++i)
@@ -61,7 +62,7 @@ Set *Set::common_part(const Set *another_set)
     return result;
 }
 
-Set *Set::unite(const Set *set)
+Set *Set::unite(const Set *set) const
 {
     auto *result = new Set;
     for (int i = 0; i < get_size(); result->add(array->get_at(i++)));
@@ -69,10 +70,18 @@ Set *Set::unite(const Set *set)
     return result;
 }
 
-void Set::print()
+void Set::print() const
 {
     array->print();
 }
+
+//iterate through set
+int Set::get_at(const int &i) const
+{
+    return array->get_at(i);
+}
+
+
 
 
 

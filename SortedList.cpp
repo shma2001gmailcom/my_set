@@ -5,46 +5,12 @@
 #include <cstdio>
 #include "SortedList.h"
 
-void SortedList::add(const int &x)//O(n)
+SortedList::SortedList()
 {
-    int pos_to_insert = first_greater_index(x);
-    if (pos_to_insert > -1)
-    {
-        if (1 + size > capacity)
-        {
-            increase_capacity();
-        }
-        for (int i = size; i >= pos_to_insert; --i)
-        {
-            array[i] = array[i - 1];
-        }
-        array[pos_to_insert] = x;
-        ++size;
-    }
+    capacity = INITIAL_CAPACITY;
+    array = new unsigned int[capacity];
+    size = 0;
 
-}
-
-int SortedList::first_greater_index(const int &x) const//O(n)
-{
-    for (int i = 0; i < size; ++i)
-    {
-        int value = array[i];
-        if (x > value)
-        {
-            continue;
-        }
-        if (x == value)
-        {
-            return -1;
-        }
-        return i;
-    }
-}
-
-//nullable
-int *SortedList::search(const int &x)//O(log n)
-{
-    return find(array, size, x);
 }
 
 SortedList::~SortedList()
@@ -52,48 +18,73 @@ SortedList::~SortedList()
     delete[] array;
 }
 
-SortedList::SortedList()
+void SortedList::add(const unsigned int &x)//O(n)
 {
-    capacity = INITIAL_CAPACITY;
-    array = new int[capacity];
-    size = 0;
-
+    int pos_to_insert = first_greater_index(x);//O(log n)
+    if (pos_to_insert > -1)
+    {
+        if (1 + size > capacity)
+        {
+            increase_capacity();//O(n)
+        }
+        for (int i = size; i >= pos_to_insert; --i)//O(n)
+        {
+            array[i] = array[i - 1];//shift greater elements right
+        }
+        array[pos_to_insert] = x;
+        ++size;
+    }
 }
 
-void SortedList::increase_capacity()
+//nullable
+unsigned int *SortedList::search(const unsigned int &x) const//O(log n)
 {
-    auto *new_array = new int[2 * capacity];
+    return find(array, size, x);
+}
+
+bool SortedList::is_empty() const//O(1)
+{
+    return size == 0;
+}
+
+int SortedList::get_at(const unsigned int &i) const//O(1)
+{
+    if (i > size - 1) __throw_length_error("index out of array bound");
+    return array[i];
+}
+
+int SortedList::get_size() const//O(1)
+{
+    return size;
+}
+
+
+int SortedList::first_greater_index(const unsigned int &element) const//O(log n)
+{
+    return least_greater_index(array, 0, size, element);//O(log n)
+}
+
+
+
+void SortedList::increase_capacity()//O(n); should be seldom-used
+{
+    auto *new_array = new unsigned int[2 * capacity];
     for (int i = 0; i < size; new_array[i] = array[i++]);
     capacity *= 2;
     delete[] array;
     array = new_array;
 }
 
-void SortedList::print()
+void SortedList::print() const
 {
-    printf("\n============\n{");
+    printf("Set{");
     for (int i = 0; i < size; i == size - 1 ? printf("%d", array[i]) : printf("%d, ", array[i]), ++i);
     printf("}\n");
-    printf("\ncapacity: %d\n", capacity);
+    printf("capacity: %d\n", capacity);
     printf("size: %d\n=========\n", size);
 
 }
 
-bool SortedList::is_empty()
-{
-    return size == 0;
-}
-
-
-int SortedList::get_at(int i) const
-{
-    return array[i];
-}
-
-int SortedList::get_size() const
-{
-    return size;
-}
 
 
 

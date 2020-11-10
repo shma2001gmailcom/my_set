@@ -15,36 +15,26 @@ public:
 
     virtual ~Set();
 
-    bool is_empty();
+    bool is_empty() const;
 
-    const bool contains(const int& element)const;
+    const bool contains(const unsigned int &element) const;
 
-    bool add(const int& element);
+    bool add(const unsigned int &element) const;
 
-    int* get(const int& element);
+    unsigned int *get(const int &element) const;
 
-    int get_size()const;
+    int get_size() const;
 
-    Set *unite(const Set *set);
+    Set *unite(const Set *set) const;
 
-    Set *common_part(const Set *another_set);
+    Set *common_part(const Set *another_set) const;
 
-    void print();
+    void print() const;
+
+    int get_at(const int& i) const;
 
 private:
     SortedList *array;
 };
-
-static inline const bool in(const int& element, const int *elements, const int& size)
-{
-    for (int i = 0; i < size; ++i)
-    {
-        if (*(elements++) == element)
-        {
-            return true;
-        }
-    }
-    return false;
-}
 
 #endif //MY_SET_SET_H
